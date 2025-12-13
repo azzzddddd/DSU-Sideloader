@@ -165,6 +165,3 @@ tasks {
         dependsOn(formatKotlin)
     }
 }
-ktlint {
-    ignoreFailures.set(true)
-}
