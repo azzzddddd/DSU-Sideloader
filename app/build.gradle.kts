@@ -20,7 +20,7 @@ android {
     val packageName: String by rootProject.extra
 
     namespace = packageName
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         this.applicationId = packageName
@@ -28,7 +28,7 @@ android {
         this.versionName = versionName
 
         minSdk = 29
-        targetSdk = 34
+        targetSdk = 36
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -83,14 +83,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_18
-        targetCompatibility = JavaVersion.VERSION_18
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "18"
+        jvmTarget = "21"
     }
     kotlin {
-        jvmToolchain(18)
+        jvmToolchain(21)
     }
     buildFeatures {
         aidl = true
@@ -98,7 +98,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
