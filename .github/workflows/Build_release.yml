@@ -48,7 +48,7 @@ jobs:
       with:
         files: app/build/outputs/apk/release/DSU-Sideloader.apk
         tag_name: v${{ inputs.version }}
-        name: Release v${{ inputs.version }}
+        name: v${{ inputs.version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
