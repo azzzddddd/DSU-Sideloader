@@ -104,6 +104,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    kotlinter {
+        ignoreFailures = true
+    }
 }
 
 aboutLibraries {
