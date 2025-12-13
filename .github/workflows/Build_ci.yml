@@ -1,4 +1,4 @@
-name: Bulid CI
+name: Build CI
 
 on:
   workflow_dispatch: 
