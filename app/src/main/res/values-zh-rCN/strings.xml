@@ -100,6 +100,12 @@
     <string name="what_is_dsu_description">DSU (Dynamic System Updates) 是 Android 10 开始引入的一项功能。该功能允许开发者无损测试 Android 系统镜像而无需破坏原始设备系统空间，从 Android 11 开始 DSU 支持替换多个分区。</string>
     <string name="view_docs">查看文档</string>
     <string name="learn_more">学习更多</string>
+
+    <!-- Fix DSU Corruption -->
+    <string name="fix_dsu_title">尝试修复 DSU 损坏（需 root）</string>
+    <string name="fix_dsu_desc">  </string>
+    <string name="fix_dsu_success">清理完成！请立刻重启手机</string>
+    <string name="fix_dsu_fail">清理失败：请检查 Root 权限</string>
     <!--
         Settings screen
     -->

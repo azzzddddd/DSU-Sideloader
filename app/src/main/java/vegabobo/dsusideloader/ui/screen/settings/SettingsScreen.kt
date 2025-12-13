@@ -9,6 +9,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.topjohnwu.superuser.Shell
 import vegabobo.dsusideloader.R
 import vegabobo.dsusideloader.preferences.AppPrefs
 import vegabobo.dsusideloader.ui.components.ApplicationScreen
@@ -27,7 +30,8 @@ fun Settings(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
-
+    val context = LocalContext.current
+    
     LaunchedEffect(Unit) {
         settingsViewModel.checkDevOpt()
     }
@@ -102,6 +106,21 @@ fun Settings(
         }
 
         Title(title = stringResource(id = R.string.other))
+        PreferenceItem(
+            title = stringResource(id = R.string.fix_dsu_title),
+            description = stringResource(id = R.string.fix_dsu_desc),
+            onClick = {
+                Shell.cmd("rm -rf /metadata/gsi/*", "rm -rf /data/gsi/*").submit { result ->
+                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                        if (result.isSuccess) {
+                            Toast.makeText(context, context.getString(R.string.fix_dsu_success), Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(context, context.getString(R.string.fix_dsu_fail), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            },
+        )
         PreferenceItem(
             title = stringResource(id = R.string.operation_mode),
             description = settingsViewModel.checkOperationMode(),

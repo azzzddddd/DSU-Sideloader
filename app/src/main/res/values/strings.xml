@@ -79,7 +79,7 @@
     <!-- No free storage error card -->
     <string name="storage_error">Storage error</string>
     <string name="storage_error_description">Android requires at least %1$s%% of free storage to proceed installation, free up some space and try again.</string>
-
+    
     <!-- Filesystem features not found error card -->
     <string name="fs_features_error">FS features unavailable</string>
     <string name="fs_features_error_description">Your kernel is likely to be registering f2fs in different path that one expected from GSI daemon, there are some fixes you can try:\n - Install DSU Sideloader Magisk\'s module.\n - Changing kernel.</string>
@@ -130,6 +130,12 @@
     <string name="what_is_dsu_description">DSU (Dynamic System Updates) is a feature introduced in Android 10 that allow developers to test Android system images without touching device partitions, with Android 11, DSU can also replace multiple partitions.</string>
     <string name="view_docs">View docs</string>
     <string name="learn_more">Learn more</string>
+    
+    <!-- Fix DSU Corruption -->
+    <string name="fix_dsu_title">Fix DSU Corruption (need root)</string>
+    <string name="fix_dsu_desc">  </string>
+    <string name="fix_dsu_success">Cleanup done! Please reboot immediately.</string>
+    <string name="fix_dsu_fail">Cleanup failed: Check Root permissions.</string>
 
     <!--
         Settings screen
