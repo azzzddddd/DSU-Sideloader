@@ -87,9 +87,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "21"
-    }
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_2_1)
+}
     kotlin {
         jvmToolchain(21)
     }
@@ -103,9 +103,6 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-    }
-    kotlinter {
-        ignoreFailures = true
     }
 }
 
@@ -167,4 +164,7 @@ tasks {
     "lintKotlin" {
         dependsOn(formatKotlin)
     }
+}
+kotlinter {
+    ignoreFailures = true
 }
