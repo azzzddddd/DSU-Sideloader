@@ -16,7 +16,6 @@ class UserSelection(
     var selectedFileUri: Uri = Uri.EMPTY,
     var selectedFileName: String = "",
 ) {
-
     fun getUserDataSizeAsGB(): String = "${(this.userSelectedUserdata / 1024L / 1024L / 1024L)}"
 
     fun setUserDataSize(size: String) {
@@ -37,16 +36,13 @@ class UserSelection(
             }
     }
 
-    fun isCustomImageSize(): Boolean {
-        return userSelectedImageSize != DSUConstants.DEFAULT_IMAGE_SIZE
-    }
+    fun isCustomImageSize(): Boolean = userSelectedImageSize != DSUConstants.DEFAULT_IMAGE_SIZE
 
-    override fun toString(): String {
-        return "UserSelection(userSelectedUserdata=$userSelectedUserdata, " +
+    override fun toString(): String =
+        "UserSelection(userSelectedUserdata=$userSelectedUserdata, " +
             "userSelectedImageSize=$userSelectedImageSize, " +
             "selectedFileUri=$selectedFileUri, " +
             "selectedFileName=$selectedFileName)"
-    }
 }
 
 class Session(
@@ -55,15 +51,14 @@ class Session(
     var preferences: InstallationPreferences = InstallationPreferences(),
     var operationMode: MutableStateFlow<OperationMode> = MutableStateFlow(OperationMode.ADB),
 ) {
-
-    fun isRoot(): Boolean {
-        return (
+    fun isRoot(): Boolean =
+        (
             operationMode.value == OperationMode.SYSTEM_AND_ROOT ||
                 operationMode.value == OperationMode.ROOT
-            )
-    }
+        )
 
     fun getOperationMode() = operationMode.value
+
     fun setOperationMode(newOpMode: OperationMode) {
         operationMode.value = newOpMode
     }
@@ -82,7 +77,5 @@ class Session(
         return Triple(userdataSize, absoluteFilePath, imageSize)
     }
 
-    override fun toString(): String {
-        return "$userSelection\n$dsuInstallation\n$preferences\noperationMode: ${operationMode.value}"
-    }
+    override fun toString(): String = "$userSelection\n$dsuInstallation\n$preferences\noperationMode: ${operationMode.value}"
 }

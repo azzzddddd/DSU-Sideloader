@@ -20,7 +20,6 @@ import vegabobo.dsusideloader.BuildConfig
 import vegabobo.dsusideloader.IPrivilegedService
 
 class PrivilegedService : IPrivilegedService.Stub() {
-
     override fun exit() {
         destroy()
     }
@@ -35,7 +34,10 @@ class PrivilegedService : IPrivilegedService.Stub() {
         return binder as IBinder
     }
 
-    fun setProp(key: String, value: String) {
+    fun setProp(
+        key: String,
+        value: String,
+    ) {
         try {
             SystemProperties.set(key, value)
         } catch (e: Exception) {
@@ -47,9 +49,7 @@ class PrivilegedService : IPrivilegedService.Stub() {
         setProp("persist.sys.fflag.override.settings_dynamic_system", "true")
     }
 
-    override fun getUid(): Int {
-        return Process.myUid()
-    }
+    override fun getUid(): Int = Process.myUid()
 
     //
     // Activity Manager
@@ -213,7 +213,10 @@ class PrivilegedService : IPrivilegedService.Stub() {
     }
 
     // REQUIRES MANAGE_DYNAMIC_SYSTEM
-    override fun setEnable(enable: Boolean, oneShot: Boolean): Boolean {
+    override fun setEnable(
+        enable: Boolean,
+        oneShot: Boolean,
+    ): Boolean {
         requiresDynamicSystem()
         return DYNAMIC_SYSTEM!!.setEnable(enable, oneShot)
     }
@@ -225,25 +228,33 @@ class PrivilegedService : IPrivilegedService.Stub() {
     }
 
     // REQUIRES MANAGE_DYNAMIC_SYSTEM
-    override fun createPartition(name: String?, size: Long, readOnly: Boolean): Int {
+    override fun createPartition(
+        name: String?,
+        size: Long,
+        readOnly: Boolean,
+    ): Int {
         requiresDynamicSystem()
         // Below T, createPartition returns boolean
         if (Build.VERSION.SDK_INT < 33) {
-            val result = HiddenApiBypass.invoke(
-                DYNAMIC_SYSTEM!!.javaClass,
-                DYNAMIC_SYSTEM!!,
-                "createPartition",
-                name,
-                size,
-                readOnly,
-            )
+            val result =
+                HiddenApiBypass.invoke(
+                    DYNAMIC_SYSTEM!!.javaClass,
+                    DYNAMIC_SYSTEM!!,
+                    "createPartition",
+                    name,
+                    size,
+                    readOnly,
+                )
             return if (result as Boolean) IGsiService.INSTALL_OK else IGsiService.INSTALL_ERROR_GENERIC
         }
         return DYNAMIC_SYSTEM!!.createPartition(name, size, readOnly)
     }
 
     // REQUIRES MANAGE_DYNAMIC_SYSTEM
-    override fun setAshmem(fd: ParcelFileDescriptor?, size: Long): Boolean {
+    override fun setAshmem(
+        fd: ParcelFileDescriptor?,
+        size: Long,
+    ): Boolean {
         requiresDynamicSystem()
         return DYNAMIC_SYSTEM!!.setAshmem(fd, size)
     }

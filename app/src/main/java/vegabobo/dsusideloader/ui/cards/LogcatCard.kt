@@ -18,15 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LogcatCard(
-    logs: String,
-) {
+fun LogcatCard(logs: String) {
     Surface(
         color = MaterialTheme.colorScheme.inverseOnSurface,
-        modifier = Modifier
-            .clip(RoundedCornerShape(10.dp))
-            .fillMaxWidth()
-            .height(400.dp),
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(400.dp),
     ) {
         Column(
             Modifier

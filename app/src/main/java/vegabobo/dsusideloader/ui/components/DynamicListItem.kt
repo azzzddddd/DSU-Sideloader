@@ -10,11 +10,12 @@ fun DynamicListItem(
     currentValue: Int,
     content: @Composable () -> Unit,
 ) {
-    val shape = when (currentValue) {
-        0 -> RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
-        listLength -> RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp)
-        else -> RoundedCornerShape(0.dp)
-    }
+    val shape =
+        when (currentValue) {
+            0 -> RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
+            listLength -> RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp)
+            else -> RoundedCornerShape(0.dp)
+        }
     CardBox(
         addPadding = false,
         roundedCornerShape = shape,

@@ -23,7 +23,6 @@ class StorageManager(
     private val appContext: Context,
     private val preferences: DataStore<Preferences>,
 ) {
-
     object Constants {
         const val WORKSPACE_FOLDER = "workspace_dsuhelper"
     }
@@ -104,7 +103,10 @@ class StorageManager(
         return clone.uri
     }
 
-    fun writeStringToFile(content: String, filename: String): String {
+    fun writeStringToFile(
+        content: String,
+        filename: String,
+    ): String {
         val file = createDocumentFile(filename)
         val outputStream = openOutputStream(file.uri)
         outputStream.write(content.toByteArray())
@@ -112,9 +114,13 @@ class StorageManager(
         return FilenameUtils.getFilePath(file.uri, false).replace("file://", "")
     }
 
-    fun writeStringToExternalFileDir(content: String, filename: String): String {
-        val externalFilesDir = appContext.getExternalFilesDir(null)
-            ?: throw IOException("externalFilesDir cannot be null.")
+    fun writeStringToExternalFileDir(
+        content: String,
+        filename: String,
+    ): String {
+        val externalFilesDir =
+            appContext.getExternalFilesDir(null)
+                ?: throw IOException("externalFilesDir cannot be null.")
         val newFile = File(externalFilesDir.absolutePath + "/$filename")
         if (newFile.exists()) {
             newFile.delete()
@@ -124,37 +130,31 @@ class StorageManager(
         return newFile.absolutePath
     }
 
-    fun writeStringToUri(content: String, uri: Uri): String {
+    fun writeStringToUri(
+        content: String,
+        uri: Uri,
+    ): String {
         val outputStream = appContext.contentResolver.openOutputStream(uri)!!
         outputStream.write(content.toByteArray())
         outputStream.close()
         return FilenameUtils.getFilePath(uri, false).replace("file://", "")
     }
 
-    fun readFileFromAssets(filename: String): String {
-        return appContext.assets.open(filename).bufferedReader()
+    fun readFileFromAssets(filename: String): String =
+        appContext.assets
+            .open(filename)
+            .bufferedReader()
             .use { it.readText() }
-    }
 
-    fun getFilenameFromUri(uri: Uri): String {
-        return FilenameUtils.queryName(appContext.contentResolver, uri)
-    }
+    fun getFilenameFromUri(uri: Uri): String = FilenameUtils.queryName(appContext.contentResolver, uri)
 
-    fun getFilesizeFromUri(uri: Uri): Long {
-        return FilenameUtils.getLengthFromFile(appContext, uri)
-    }
+    fun getFilesizeFromUri(uri: Uri): Long = FilenameUtils.getLengthFromFile(appContext, uri)
 
-    fun openInputStream(uri: Uri): InputStream {
-        return appContext.contentResolver.openInputStream(uri)!!
-    }
+    fun openInputStream(uri: Uri): InputStream = appContext.contentResolver.openInputStream(uri)!!
 
-    fun openOutputStream(uri: Uri): OutputStream {
-        return appContext.contentResolver.openOutputStream(uri)!!
-    }
+    fun openOutputStream(uri: Uri): OutputStream = appContext.contentResolver.openOutputStream(uri)!!
 
-    fun createDocumentFile(filename: String): DocumentFile {
-        return getWorkspaceFolder().createFile("application/octet-stream", filename)!!
-    }
+    fun createDocumentFile(filename: String): DocumentFile = getWorkspaceFolder().createFile("application/octet-stream", filename)!!
 
     fun getUriSafe(uri: Uri): Uri {
         if (isPathWrong(uri)) {
@@ -163,7 +163,5 @@ class StorageManager(
         return uri
     }
 
-    private fun isPathWrong(uri: Uri): Boolean {
-        return uri.path.toString().contains("msf:")
-    }
+    private fun isPathWrong(uri: Uri): Boolean = uri.path.toString().contains("msf:")
 }

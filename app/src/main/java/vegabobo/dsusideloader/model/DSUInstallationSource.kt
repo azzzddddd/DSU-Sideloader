@@ -14,7 +14,11 @@ open class ImagePartition(
 )
 
 enum class Type {
-    NONE, SINGLE_SYSTEM_IMAGE, DSU_PACKAGE, URL, MULTIPLE_IMAGES
+    NONE,
+    SINGLE_SYSTEM_IMAGE,
+    DSU_PACKAGE,
+    URL,
+    MULTIPLE_IMAGES,
 }
 
 open class DSUInstallationSource(
@@ -23,7 +27,6 @@ open class DSUInstallationSource(
     open var fileSize: Long = DSUConstants.DEFAULT_IMAGE_SIZE,
     open val images: List<ImagePartition> = listOf(),
 ) {
-
     data class SingleSystemImage(
         override var uri: Uri = Uri.EMPTY,
         override var fileSize: Long = DSUConstants.DEFAULT_IMAGE_SIZE,

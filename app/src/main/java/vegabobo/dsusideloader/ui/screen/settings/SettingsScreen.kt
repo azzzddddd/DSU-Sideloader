@@ -1,5 +1,6 @@
 package vegabobo.dsusideloader.ui.screen.settings
 
+import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.WarningAmber
@@ -7,10 +8,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
 import com.topjohnwu.superuser.Shell
 import vegabobo.dsusideloader.R
 import vegabobo.dsusideloader.preferences.AppPrefs
@@ -31,7 +31,7 @@ fun Settings(
 ) {
     val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    
+
     LaunchedEffect(Unit) {
         settingsViewModel.checkDevOpt()
     }
@@ -49,13 +49,13 @@ fun Settings(
         PreferenceItem(
             title = stringResource(id = R.string.builtin_installer),
             description =
-            if (settingsViewModel.isAndroidQ()) {
-                stringResource(id = R.string.unsupported)
-            } else if (uiState.isRoot) {
-                stringResource(id = R.string.builtin_installer_description)
-            } else {
-                stringResource(R.string.requires_root)
-            },
+                if (settingsViewModel.isAndroidQ()) {
+                    stringResource(id = R.string.unsupported)
+                } else if (uiState.isRoot) {
+                    stringResource(id = R.string.builtin_installer_description)
+                } else {
+                    stringResource(R.string.requires_root)
+                },
             showToggle = true,
             isEnabled = uiState.isRoot && !settingsViewModel.isAndroidQ(),
             isChecked = uiState.preferences[AppPrefs.USE_BUILTIN_INSTALLER]!!,

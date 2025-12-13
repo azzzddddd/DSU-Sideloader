@@ -17,7 +17,6 @@ class Preparation(
     private val onCanceled: () -> Unit,
     private val onPreparationFinished: (preparedDSU: DSUInstallationSource) -> Unit,
 ) : () -> Unit {
-
     private val userSelectedImageSize = session.userSelection.userSelectedImageSize
     private val userSelectedFileUri = session.userSelection.selectedFileUri
 
@@ -30,27 +29,28 @@ class Preparation(
     }
 
     private fun prepareRooted() {
-        val source: DSUInstallationSource = when (getExtension(userSelectedFileUri)) {
-            "img" -> {
-                DSUInstallationSource.SingleSystemImage(
-                    userSelectedFileUri,
-                    storageManager.getFilesizeFromUri(userSelectedFileUri),
-                )
-            }
+        val source: DSUInstallationSource =
+            when (getExtension(userSelectedFileUri)) {
+                "img" -> {
+                    DSUInstallationSource.SingleSystemImage(
+                        userSelectedFileUri,
+                        storageManager.getFilesizeFromUri(userSelectedFileUri),
+                    )
+                }
 
-            "xz", "gz", "gzip" -> {
-                val result = extractFile(userSelectedFileUri)
-                DSUInstallationSource.SingleSystemImage(result.first, result.second)
-            }
+                "xz", "gz", "gzip" -> {
+                    val result = extractFile(userSelectedFileUri)
+                    DSUInstallationSource.SingleSystemImage(result.first, result.second)
+                }
 
-            "zip" -> {
-                DSUInstallationSource.DsuPackage(userSelectedFileUri)
-            }
+                "zip" -> {
+                    DSUInstallationSource.DsuPackage(userSelectedFileUri)
+                }
 
-            else -> {
-                throw Exception("Unsupported filetype")
+                else -> {
+                    throw Exception("Unsupported filetype")
+                }
             }
-        }
         if (!job.isCancelled) {
             onPreparationFinished(source)
         } else {
@@ -73,11 +73,12 @@ class Preparation(
         val preparedUri = preparedFilePair.first
         val preparedFileSize = preparedFilePair.second
 
-        val source = if (fileExtension == "zip") {
-            DSUInstallationSource.DsuPackage(preparedUri)
-        } else {
-            DSUInstallationSource.SingleSystemImage(preparedUri, preparedFileSize)
-        }
+        val source =
+            if (fileExtension == "zip") {
+                DSUInstallationSource.DsuPackage(preparedUri)
+            } else {
+                DSUInstallationSource.SingleSystemImage(preparedUri, preparedFileSize)
+            }
 
         onStepUpdate(InstallationStep.WAITING_USER_CONFIRMATION)
 
@@ -98,26 +99,28 @@ class Preparation(
     private fun prepareXz(xzFile: Uri): Pair<Uri, Long> {
         val outputFile = getFileName(xzFile)
         onStepUpdate(InstallationStep.DECOMPRESSING_XZ)
-        val imgFile = FileUnPacker(
-            storageManager,
-            xzFile,
-            outputFile,
-            job,
-            onPreparationProgressUpdate,
-        ).unpack()
+        val imgFile =
+            FileUnPacker(
+                storageManager,
+                xzFile,
+                outputFile,
+                job,
+                onPreparationProgressUpdate,
+            ).unpack()
         return prepareImage(imgFile.first)
     }
 
     private fun prepareImage(imageFile: Uri): Pair<Uri, Long> {
         val outputFile = "${getFileName(imageFile)}.img.gz"
         onStepUpdate(InstallationStep.COMPRESSING_TO_GZ)
-        val compressedFilePair = FileUnPacker(
-            storageManager,
-            imageFile,
-            outputFile,
-            job,
-            onPreparationProgressUpdate,
-        ).pack()
+        val compressedFilePair =
+            FileUnPacker(
+                storageManager,
+                imageFile,
+                outputFile,
+                job,
+                onPreparationProgressUpdate,
+            ).pack()
         return Pair(compressedFilePair.first, storageManager.getFilesizeFromUri(imageFile))
     }
 
@@ -156,11 +159,12 @@ class Preparation(
         return Pair(uri, extractedFilePair.second)
     }
 
-    private fun extractFile(uri: Uri): Pair<Uri, Long> {
-        return extractFile(uri, "system")
-    }
+    private fun extractFile(uri: Uri): Pair<Uri, Long> = extractFile(uri, "system")
 
-    private fun extractFile(uri: Uri, partitionName: String): Pair<Uri, Long> {
+    private fun extractFile(
+        uri: Uri,
+        partitionName: String,
+    ): Pair<Uri, Long> {
         onStepUpdate(InstallationStep.EXTRACTING_FILE)
         return FileUnPacker(
             storageManager,
@@ -176,13 +180,13 @@ class Preparation(
         return storageManager.getUriSafe(uri)
     }
 
-    private fun getFileName(uri: Uri): String {
-        return storageManager.getFilenameFromUri(uri)
+    private fun getFileName(uri: Uri): String =
+        storageManager
+            .getFilenameFromUri(uri)
             .substringBeforeLast(".")
-    }
 
-    private fun getExtension(uri: Uri): String {
-        return storageManager.getFilenameFromUri(uri)
+    private fun getExtension(uri: Uri): String =
+        storageManager
+            .getFilenameFromUri(uri)
             .substringAfterLast(".", "")
-    }
 }

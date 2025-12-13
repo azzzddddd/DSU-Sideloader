@@ -23,31 +23,28 @@ import vegabobo.dsusideloader.preferences.AppPrefs
 @InstallIn(SingletonComponent::class)
 @Module
 object DataModules {
-
     @Singleton
     @Provides
-    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
-        return PreferenceDataStoreFactory.create(
-            corruptionHandler = ReplaceFileCorruptionHandler(
-                produceNewData = { emptyPreferences() },
-            ),
+    fun providePreferencesDataStore(
+        @ApplicationContext appContext: Context,
+    ): DataStore<Preferences> =
+        PreferenceDataStoreFactory.create(
+            corruptionHandler =
+                ReplaceFileCorruptionHandler(
+                    produceNewData = { emptyPreferences() },
+                ),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
             produceFile = { appContext.preferencesDataStoreFile(AppPrefs.USER_PREFERENCES) },
         )
-    }
 
     @Singleton
     @Provides
     fun providesStorageManager(
         @ApplicationContext appContext: Context,
         preferences: DataStore<Preferences>,
-    ): StorageManager {
-        return StorageManager(appContext, preferences)
-    }
+    ): StorageManager = StorageManager(appContext, preferences)
 
     @Singleton
     @Provides
-    fun provideSession(): Session {
-        return Session()
-    }
+    fun provideSession(): Session = Session()
 }

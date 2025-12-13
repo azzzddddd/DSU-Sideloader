@@ -25,9 +25,10 @@ fun DialogItem(
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
-            modifier = Modifier
-                .size(32.dp)
-                .padding(end = 6.dp),
+            modifier =
+                Modifier
+                    .size(32.dp)
+                    .padding(end = 6.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
             imageVector = icon,
             contentDescription = "Icon",

@@ -24,12 +24,16 @@ fun Application.isBuildSignedByAuthor(): Boolean {
     return false
 }
 
-private fun getSignatures(pm: PackageManager, packageName: String): List<String?>? {
+private fun getSignatures(
+    pm: PackageManager,
+    packageName: String,
+): List<String?>? {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        val packageInfo = pm.getPackageInfo(
-            packageName,
-            PackageManager.PackageInfoFlags.of(PackageManager.GET_SIGNING_CERTIFICATES.toLong()),
-        )
+        val packageInfo =
+            pm.getPackageInfo(
+                packageName,
+                PackageManager.PackageInfoFlags.of(PackageManager.GET_SIGNING_CERTIFICATES.toLong()),
+            )
         if (packageInfo.signingInfo.hasMultipleSigners()) {
             return signatureDigest(packageInfo.signingInfo.apkContentsSigners)
         }
@@ -56,6 +60,4 @@ private fun signatureDigest(sig: Signature): String? {
     }
 }
 
-private fun signatureDigest(sigList: Array<Signature>): List<String?> {
-    return sigList.map { s -> signatureDigest(s) }
-}
+private fun signatureDigest(sigList: Array<Signature>): List<String?> = sigList.map { s -> signatureDigest(s) }

@@ -29,10 +29,11 @@ fun ViewLogsBottomSheet(
     val context = LocalContext.current
     val logsSavedText = stringResource(id = R.string.saved_logs)
 
-    val saveLogsResult = launcherAcResult {
-        onClickSaveLogs(it)
-        Toast.makeText(context, logsSavedText, Toast.LENGTH_SHORT).show()
-    }
+    val saveLogsResult =
+        launcherAcResult {
+            onClickSaveLogs(it)
+            Toast.makeText(context, logsSavedText, Toast.LENGTH_SHORT).show()
+        }
 
     CustomBottomSheet(
         title = stringResource(id = R.string.installation_logs),
@@ -41,9 +42,10 @@ fun ViewLogsBottomSheet(
     ) {
         LogcatCard(logs = logs)
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
         ) {
             Spacer(modifier = Modifier.weight(1F))
             PrimaryButton(

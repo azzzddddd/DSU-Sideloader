@@ -32,19 +32,20 @@ fun CardBox(
     content: @Composable (ColumnScope) -> Unit,
 ) {
     Box(
-        modifier = if (addPadding) {
-            Modifier
-                .clip(roundedCornerShape)
-                .background(cardColor)
-                .padding(all = 10.dp)
-                .padding(end = 4.dp, start = 4.dp)
-                .fillMaxWidth()
-        } else {
-            Modifier
-                .clip(roundedCornerShape)
-                .background(cardColor)
-                .fillMaxWidth()
-        },
+        modifier =
+            if (addPadding) {
+                Modifier
+                    .clip(roundedCornerShape)
+                    .background(cardColor)
+                    .padding(all = 10.dp)
+                    .padding(end = 4.dp, start = 4.dp)
+                    .fillMaxWidth()
+            } else {
+                Modifier
+                    .clip(roundedCornerShape)
+                    .background(cardColor)
+                    .fillMaxWidth()
+            },
     ) {
         Column(modifier = modifier) {
             if (cardTitle.isNotEmpty()) {

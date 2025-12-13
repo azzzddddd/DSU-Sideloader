@@ -30,11 +30,11 @@ fun ActionButton(
             onClick = onClick,
             enabled = isEnabled,
             colors =
-            if (colorButton != null) {
-                ButtonDefaults.buttonColors(colorButton)
-            } else {
-                ButtonDefaults.buttonColors()
-            },
+                if (colorButton != null) {
+                    ButtonDefaults.buttonColors(colorButton)
+                } else {
+                    ButtonDefaults.buttonColors()
+                },
         ) {
             Text(
                 text = text,

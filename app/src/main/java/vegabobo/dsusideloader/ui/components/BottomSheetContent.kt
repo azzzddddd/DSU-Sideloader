@@ -28,20 +28,22 @@ fun BottomSheetContent(
     content: @Composable () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp)
-            .clip(RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp)),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
+                .clip(RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp)),
     ) {
         Surface(
             color = MaterialTheme.colorScheme.onBackground,
             shape = CircleShape,
-            modifier = Modifier
-                .alpha(0.1F)
-                .height(6.dp)
-                .width(32.dp)
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally),
+            modifier =
+                Modifier
+                    .alpha(0.1F)
+                    .height(6.dp)
+                    .width(32.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally),
             content = {},
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -49,10 +51,11 @@ fun BottomSheetContent(
             tint = MaterialTheme.colorScheme.onBackground,
             imageVector = icon,
             contentDescription = "icon",
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
-                .padding(12.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .padding(12.dp),
         )
         Text(
             color = MaterialTheme.colorScheme.onBackground,

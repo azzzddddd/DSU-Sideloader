@@ -5,13 +5,11 @@ import vegabobo.dsusideloader.model.DSUConstants
 class InstallationCmdline(
     private val parameters: Triple<Long, String, Long>,
 ) {
-
-    fun getCmd(): String {
-        return "am start-activity " +
+    fun getCmd(): String =
+        "am start-activity " +
             "-n com.android.dynsystem/com.android.dynsystem.VerificationActivity " +
             "-a android.os.image.action.START_INSTALL " +
             "" + genInstallationArguments()
-    }
 
     private fun genInstallationArguments(): String {
         val userdataSize = parameters.first
@@ -29,11 +27,14 @@ class InstallationCmdline(
         return arguments.trim()
     }
 
-    private fun addArgument(argument: String, property: String, value: Any?): String {
-        return "$argument $property $value "
-    }
+    private fun addArgument(
+        argument: String,
+        property: String,
+        value: Any?,
+    ): String = "$argument $property $value "
 
-    private fun addArgument(argument: String, value: Any?): String {
-        return "$argument $value "
-    }
+    private fun addArgument(
+        argument: String,
+        value: Any?,
+    ): String = "$argument $value "
 }

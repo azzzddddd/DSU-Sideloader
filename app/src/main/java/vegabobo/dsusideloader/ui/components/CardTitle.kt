@@ -9,7 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CardTitle(modifier: Modifier = Modifier, cardTitle: String) {
+fun CardTitle(
+    modifier: Modifier = Modifier,
+    cardTitle: String,
+) {
     val scroll = rememberScrollState(0)
     Text(
         modifier = modifier.horizontalScroll(scroll),

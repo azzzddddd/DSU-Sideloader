@@ -17,7 +17,6 @@ class FileUnPacker(
     private val installationJob: Job,
     private val onProgressChange: (Float) -> Unit,
 ) {
-
     private var finalFile: DocumentFile = storageManager.createDocumentFile(outputFile)
 
     private var outputStream = storageManager.openOutputStream(finalFile.uri)
@@ -32,8 +31,11 @@ class FileUnPacker(
         val buffer = ByteArray(8 * 1024)
         var n: Int
         var readed: Long = 0
-        while (-1 != inputStr.read(buffer)
-                .also { n = it } && !installationJob.isCancelled
+        while (-1 !=
+            inputStr
+                .read(buffer)
+                .also { n = it } &&
+            !installationJob.isCancelled
         ) {
             readed += buffer.size
             onReadedBuffer(readed)
@@ -69,7 +71,10 @@ class FileUnPacker(
         return Pair(finalFile.uri, fileLength)
     }
 
-    private fun updateProgress(fileSize: Long, readed: Long) {
+    private fun updateProgress(
+        fileSize: Long,
+        readed: Long,
+    ) {
         val percent: Float = readed.toFloat() / fileSize.toFloat()
         onProgressChange(percent)
     }

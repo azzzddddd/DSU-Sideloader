@@ -9,28 +9,27 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class DataStoreUtils {
-
     companion object {
-
         suspend fun readBoolPref(
             dataStore: DataStore<Preferences>,
             key: String,
             default: Boolean,
-        ): Boolean {
-            return dataStore.data.map {
-                it[booleanPreferencesKey(key)] ?: default
-            }.first()
-        }
+        ): Boolean =
+            dataStore.data
+                .map {
+                    it[booleanPreferencesKey(key)] ?: default
+                }.first()
 
         suspend fun readStringPref(
             dataStore: DataStore<Preferences>,
             key: String,
             default: String,
-        ): String {
-            return dataStore.data.map {
-                it[stringPreferencesKey(key)] ?: default
-            }.first().toString()
-        }
+        ): String =
+            dataStore.data
+                .map {
+                    it[stringPreferencesKey(key)] ?: default
+                }.first()
+                .toString()
 
         suspend fun readStringPref(
             dataStore: DataStore<Preferences>,

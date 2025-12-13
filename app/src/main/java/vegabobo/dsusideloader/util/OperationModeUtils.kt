@@ -50,10 +50,11 @@ enum class OperationMode {
 }
 
 class OperationModeUtils {
-
     companion object {
-
-        fun getOperationMode(context: Context, checkShizuku: Boolean): OperationMode {
+        fun getOperationMode(
+            context: Context,
+            checkShizuku: Boolean,
+        ): OperationMode {
             if (isDsuPermissionGranted(context)) {
                 if (Shell.getShell().isRoot) {
                     return OperationMode.SYSTEM_AND_ROOT
@@ -72,19 +73,19 @@ class OperationModeUtils {
             return OperationMode.ADB
         }
 
-        fun getOperationModeAsString(operationMode: OperationMode): String {
-            return when (operationMode) {
+        fun getOperationModeAsString(operationMode: OperationMode): String =
+            when (operationMode) {
                 OperationMode.SYSTEM_AND_ROOT -> "Root/System"
                 OperationMode.SYSTEM -> "System"
                 OperationMode.ROOT -> "Root"
                 OperationMode.ADB -> "ADB"
                 OperationMode.SHIZUKU -> "Shizuku"
             }
-        }
 
-        private fun isPermissionGranted(context: Context, permission: String): Boolean {
-            return context.checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
-        }
+        private fun isPermissionGranted(
+            context: Context,
+            permission: String,
+        ): Boolean = context.checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 
         private fun isDsuPermissionGranted(context: Context): Boolean {
             val dynPermission = "android.permission.INSTALL_DYNAMIC_SYSTEM"
@@ -96,12 +97,11 @@ class OperationModeUtils {
             return isPermissionGranted(context, readLogsPermission)
         }
 
-        fun isShizukuPermissionGranted(context: Context): Boolean {
-            return if (Shizuku.isPreV11() || Shizuku.getVersion() < 11) {
+        fun isShizukuPermissionGranted(context: Context): Boolean =
+            if (Shizuku.isPreV11() || Shizuku.getVersion() < 11) {
                 isPermissionGranted(context, ShizukuProvider.PERMISSION)
             } else {
                 Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
             }
-        }
     }
 }

@@ -40,10 +40,11 @@ fun CustomBottomSheet(
     content: @Composable ColumnScope.(hideSheet: suspend () -> Unit) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
-    )
+    val sheetState =
+        rememberModalBottomSheetState(
+            initialValue = ModalBottomSheetValue.Hidden,
+            confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
+        )
 
     // Initial state of BottomSheet is "Hidden"
     // * we can change it to "Expanded", however, animation would be lost.
@@ -81,17 +82,22 @@ fun CustomBottomSheet(
                 title = title,
                 icon = icon,
             ) {
-                val insets = WindowInsets
-                    .systemBars
-                    .only(WindowInsetsSides.Vertical)
-                    .asPaddingValues()
+                val insets =
+                    WindowInsets
+                        .systemBars
+                        .only(WindowInsetsSides.Vertical)
+                        .asPaddingValues()
                 Column(
-                    modifier = Modifier
-                        .align(Alignment.End)
-                        .padding(end = 18.dp, start = 18.dp, bottom = insets.calculateBottomPadding() + 14.dp, top = 14.dp),
+                    modifier =
+                        Modifier
+                            .align(Alignment.End)
+                            .padding(end = 18.dp, start = 18.dp, bottom = insets.calculateBottomPadding() + 14.dp, top = 14.dp),
                 ) {
                     // Shortcut used to hide sheet by event
-                    content { sheetState.hide(); shouldCallOnDismiss.value = false; }
+                    content {
+                        sheetState.hide()
+                        shouldCallOnDismiss.value = false
+                    }
                 }
             }
         },

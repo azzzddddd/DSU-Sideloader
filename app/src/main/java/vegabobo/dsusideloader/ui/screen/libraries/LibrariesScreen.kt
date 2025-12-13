@@ -27,9 +27,7 @@ import vegabobo.dsusideloader.ui.screen.Destinations
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LibrariesScreen(
-    navigate: (String) -> Unit,
-) {
+fun LibrariesScreen(navigate: (String) -> Unit) {
     val libs = remember { mutableStateOf<Libs?>(null) }
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
@@ -42,9 +40,10 @@ fun LibrariesScreen(
     ApplicationScreen(
         enableDefaultScrollBehavior = false,
         columnContent = false,
-        modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .padding(start = 10.dp, end = 10.dp),
+        modifier =
+            Modifier
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .padding(start = 10.dp, end = 10.dp),
         topBar = {
             TopBar(
                 barTitle = stringResource(id = R.string.libraries_title),

@@ -18,7 +18,6 @@ import vegabobo.dsusideloader.service.PrivilegedProvider
 open class DsuInstallationHandler(
     private val session: Session,
 ) {
-
     private val tag = this.javaClass.simpleName
 
     fun startInstallation() {
@@ -57,12 +56,13 @@ open class DsuInstallationHandler(
         val volumes: List<VolumeInfo> =
             PrivilegedProvider.getService().volumes
         val volumesUnmount: ArrayList<String> = ArrayList()
-        for (volume in volumes)
+        for (volume in volumes) {
             if (volume.id.contains("public")) {
                 PrivilegedProvider.run { unmount(volume.id) }
                 volumesUnmount.add(volume.id)
                 Log.d(tag, "Volume unmounted: ${volume.id}")
             }
+        }
         if (volumesUnmount.size > 0) {
             CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
                 delay(30 * 1000)

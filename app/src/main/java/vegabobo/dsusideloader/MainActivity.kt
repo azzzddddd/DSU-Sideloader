@@ -27,8 +27,9 @@ import vegabobo.dsusideloader.util.OperationMode
 import vegabobo.dsusideloader.util.OperationModeUtils
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity(), Shizuku.OnRequestPermissionResultListener {
-
+class MainActivity :
+    ComponentActivity(),
+    Shizuku.OnRequestPermissionResultListener {
     @Inject
     lateinit var session: Session
 
@@ -47,10 +48,10 @@ class MainActivity : ComponentActivity(), Shizuku.OnRequestPermissionResultListe
     //
 
     val userServiceArgs =
-        Shizuku.UserServiceArgs(
-            ComponentName(BuildConfig.APPLICATION_ID, PrivilegedService::class.java.name),
-        )
-            .daemon(false)
+        Shizuku
+            .UserServiceArgs(
+                ComponentName(BuildConfig.APPLICATION_ID, PrivilegedService::class.java.name),
+            ).daemon(false)
             .processNameSuffix("service")
             .debuggable(BuildConfig.DEBUG)
             .version(BuildConfig.VERSION_CODE)
@@ -68,13 +69,14 @@ class MainActivity : ComponentActivity(), Shizuku.OnRequestPermissionResultListe
         Shizuku.removeBinderReceivedListener(BINDER_RECEIVED_LISTENER)
     }
 
-    private val BINDER_RECEIVED_LISTENER = Shizuku.OnBinderReceivedListener {
-        if (!OperationModeUtils.isShizukuPermissionGranted(this)) {
-            askShizukuPermission()
-            return@OnBinderReceivedListener
+    private val BINDER_RECEIVED_LISTENER =
+        Shizuku.OnBinderReceivedListener {
+            if (!OperationModeUtils.isShizukuPermissionGranted(this)) {
+                askShizukuPermission()
+                return@OnBinderReceivedListener
+            }
+            bindShizuku()
         }
-        bindShizuku()
-    }
 
     private fun askShizukuPermission() {
         if (Shizuku.isPreV11() || Shizuku.getVersion() < 11) {
@@ -84,7 +86,10 @@ class MainActivity : ComponentActivity(), Shizuku.OnRequestPermissionResultListe
         }
     }
 
-    override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {
+    override fun onRequestPermissionResult(
+        requestCode: Int,
+        grantResult: Int,
+    ) {
         if (grantResult == PackageManager.PERMISSION_GRANTED && requestCode == SHIZUKU_REQUEST_CODE) {
             bindShizuku()
         }
@@ -105,7 +110,8 @@ class MainActivity : ComponentActivity(), Shizuku.OnRequestPermissionResultListe
         init {
             // Shell.enableVerboseLogging = BuildConfig.DEBUG
             Shell.setDefaultBuilder(
-                Shell.Builder.create()
+                Shell.Builder
+                    .create()
                     .setFlags(Shell.FLAG_REDIRECT_STDERR)
                     .setTimeout(10),
             )

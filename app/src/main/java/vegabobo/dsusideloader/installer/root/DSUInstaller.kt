@@ -49,8 +49,8 @@ class DSUInstaller(
     private val onCreatePartition: (partition: String) -> Unit,
     private val onInstallationStepUpdate: (step: InstallationStep) -> Unit,
     private val onInstallationSuccess: () -> Unit,
-) : () -> Unit, DynamicSystemImpl() {
-
+) : DynamicSystemImpl(),
+    () -> Unit {
     private val tag = this.javaClass.simpleName
 
     object Constants {
@@ -59,8 +59,9 @@ class DSUInstaller(
         const val MIN_PROGRESS_TO_PUBLISH = (1 shl 27).toLong()
     }
 
-    private class MappedMemoryBuffer(var mBuffer: ByteBuffer?) :
-        AutoCloseable {
+    private class MappedMemoryBuffer(
+        var mBuffer: ByteBuffer?,
+    ) : AutoCloseable {
         override fun close() {
             if (mBuffer != null) {
                 SharedMemory.unmap(mBuffer!!)
@@ -69,26 +70,25 @@ class DSUInstaller(
         }
     }
 
-    private val UNSUPPORTED_PARTITIONS: List<String> = listOf(
-        "vbmeta",
-        "boot",
-        "userdata",
-        "dtbo",
-        "super_empty",
-        "system_other",
-        "scratch",
-    )
+    private val UNSUPPORTED_PARTITIONS: List<String> =
+        listOf(
+            "vbmeta",
+            "boot",
+            "userdata",
+            "dtbo",
+            "super_empty",
+            "system_other",
+            "scratch",
+        )
 
-    private fun isPartitionSupported(partitionName: String): Boolean =
-        !UNSUPPORTED_PARTITIONS.contains(partitionName)
+    private fun isPartitionSupported(partitionName: String): Boolean = !UNSUPPORTED_PARTITIONS.contains(partitionName)
 
-    private fun getFdDup(sharedMemory: SharedMemory): ParcelFileDescriptor {
-        return HiddenApiBypass.invoke(
+    private fun getFdDup(sharedMemory: SharedMemory): ParcelFileDescriptor =
+        HiddenApiBypass.invoke(
             sharedMemory.javaClass,
             sharedMemory,
             "getFdDup",
         ) as ParcelFileDescriptor
-    }
 
     private fun shouldInstallEntry(name: String): Boolean {
         if (!name.endsWith(".img")) {
@@ -98,7 +98,11 @@ class DSUInstaller(
         return isPartitionSupported(partitionName)
     }
 
-    private fun publishProgress(bytesRead: Long, totalBytes: Long, partition: String) {
+    private fun publishProgress(
+        bytesRead: Long,
+        totalBytes: Long,
+        partition: String,
+    ) {
         var progress = 0F
         if (totalBytes != 0L && bytesRead != 0L) {
             progress = (bytesRead.toFloat() / totalBytes.toFloat())
@@ -148,14 +152,16 @@ class DSUInstaller(
         inputStream: InputStream,
         readOnly: Boolean = true,
     ) {
-        val sis = SparseInputStream(
-            BufferedInputStream(inputStream),
-        )
+        val sis =
+            SparseInputStream(
+                BufferedInputStream(inputStream),
+            )
         val partitionSize = if (sis.unsparseSize != -1L) sis.unsparseSize else uncompressedSize
         onCreatePartition(partition)
         createNewPartition(partition, partitionSize, readOnly)
         onInstallationStepUpdate(InstallationStep.INSTALLING_ROOTED)
-        SharedMemory.create("dsu_buffer_$partition", Constants.SHARED_MEM_SIZE)
+        SharedMemory
+            .create("dsu_buffer_$partition", Constants.SHARED_MEM_SIZE)
             .use { sharedMemory ->
                 MappedMemoryBuffer(sharedMemory.mapReadWrite()).use { mappedBuffer ->
                     val fdDup = getFdDup(sharedMemory)
@@ -165,7 +171,9 @@ class DSUInstaller(
                     val readBuffer = ByteArray(sharedMemory.size)
                     val buffer = mappedBuffer.mBuffer
                     var numBytesRead: Int
-                    while (0 < sis.read(readBuffer, 0, readBuffer.size)
+                    while (0 <
+                        sis
+                            .read(readBuffer, 0, readBuffer.size)
                             .also { numBytesRead = it }
                     ) {
                         if (installationJob.isCancelled) {
@@ -209,7 +217,10 @@ class DSUInstaller(
         return true
     }
 
-    private fun installImageFromAnEntry(entry: ZipEntry, inputStream: InputStream) {
+    private fun installImageFromAnEntry(
+        entry: ZipEntry,
+        inputStream: InputStream,
+    ) {
         val fileName = entry.name
         Log.d(tag, "Installing: $fileName")
         val partitionName = fileName.substring(0, fileName.length - 4)
@@ -272,7 +283,11 @@ class DSUInstaller(
         }
     }
 
-    private fun installImage(partitionName: String, uncompressedSize: Long, uri: Uri) {
+    private fun installImage(
+        partitionName: String,
+        uncompressedSize: Long,
+        uri: Uri,
+    ) {
         installImage(
             partitionName,
             uncompressedSize,
@@ -283,11 +298,13 @@ class DSUInstaller(
         }
     }
 
-    fun openInputStream(uri: Uri): InputStream {
-        return application.contentResolver.openInputStream(uri)!!
-    }
+    fun openInputStream(uri: Uri): InputStream = application.contentResolver.openInputStream(uri)!!
 
-    fun createNewPartition(partition: String, partitionSize: Long, readOnly: Boolean) {
+    fun createNewPartition(
+        partition: String,
+        partitionSize: Long,
+        readOnly: Boolean,
+    ) {
         val result = createPartition(partition, partitionSize, readOnly)
         if (result != IGsiService.INSTALL_OK) {
             Log.d(

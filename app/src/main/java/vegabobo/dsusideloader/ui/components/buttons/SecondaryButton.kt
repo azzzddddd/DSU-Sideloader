@@ -17,7 +17,10 @@ fun SecondaryButton(
     onClick: () -> Unit,
     isEnabled: Boolean = true,
 ) {
-    fun addAlpha(c: Int, a: Float): Color =
+    fun addAlpha(
+        c: Int,
+        a: Float,
+    ): Color =
         Color(
             android.graphics.Color.argb(
                 (android.graphics.Color.alpha(c) * a).roundToInt(),

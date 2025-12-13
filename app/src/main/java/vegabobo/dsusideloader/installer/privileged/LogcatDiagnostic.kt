@@ -12,7 +12,6 @@ class LogcatDiagnostic(
     private val onInstallationSuccess: () -> Unit,
     private val onLogLineReceived: () -> Unit,
 ) {
-
     private val tag = this.javaClass.simpleName
     var logs = ""
     val isLogging = AtomicBoolean(false)

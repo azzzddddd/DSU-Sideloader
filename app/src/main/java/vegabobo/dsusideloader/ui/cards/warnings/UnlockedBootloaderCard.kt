@@ -12,9 +12,7 @@ import vegabobo.dsusideloader.ui.components.SimpleCard
 import vegabobo.dsusideloader.ui.components.buttons.SecondaryButton
 
 @Composable
-fun UnlockedBootloaderCard(
-    onClickClose: () -> Unit = {},
-) {
+fun UnlockedBootloaderCard(onClickClose: () -> Unit = {}) {
     SimpleCard(
         modifier = Modifier.fillMaxWidth(),
         cardTitle = stringResource(id = R.string.unlocked_bl_warn),

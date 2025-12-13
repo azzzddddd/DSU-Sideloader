@@ -52,11 +52,12 @@ import kotlinx.coroutines.flow.StateFlow
 fun <T> StateFlow<T>.collectAsStateWithLifecycle(
     lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
-): State<T> = collectAsStateWithLifecycle(
-    initialValue = remember { this.value },
-    lifecycle = lifecycle,
-    minActiveState = minActiveState,
-)
+): State<T> =
+    collectAsStateWithLifecycle(
+        initialValue = remember { this.value },
+        lifecycle = lifecycle,
+        minActiveState = minActiveState,
+    )
 
 /**
  * Collects values from this [Flow] and represents its latest value via [State] in a

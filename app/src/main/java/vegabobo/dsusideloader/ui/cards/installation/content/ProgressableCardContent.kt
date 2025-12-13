@@ -26,9 +26,10 @@ fun ProgressableCardContent(
 ) {
     Text(text = text)
     AnimatedVisibility(visible = showProgressBar) {
-        val progressBarModifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 12.dp, bottom = 5.dp)
+        val progressBarModifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp, bottom = 5.dp)
         if (isIndeterminate) {
             LinearProgressIndicator(modifier = progressBarModifier)
         } else {

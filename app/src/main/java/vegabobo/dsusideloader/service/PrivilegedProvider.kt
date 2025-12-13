@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import vegabobo.dsusideloader.IPrivilegedService
 
 object PrivilegedProvider {
-
     private val tag = this.javaClass.simpleName
 
     var connection = Connection()
@@ -53,11 +52,7 @@ object PrivilegedProvider {
     }
 
     // Blocking
-    fun isRoot(): Boolean {
-        return this.getService().uid == 0
-    }
+    fun isRoot(): Boolean = this.getService().uid == 0
 
-    fun isConnected(): Boolean {
-        return this.connection.SERVICE != null
-    }
+    fun isConnected(): Boolean = this.connection.SERVICE != null
 }

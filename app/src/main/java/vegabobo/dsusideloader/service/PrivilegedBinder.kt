@@ -6,13 +6,9 @@ import android.os.IBinder
 import com.topjohnwu.superuser.ipc.RootService
 
 class PrivilegedRootService : RootService() {
-    override fun onBind(intent: Intent): IBinder {
-        return PrivilegedService()
-    }
+    override fun onBind(intent: Intent): IBinder = PrivilegedService()
 }
 
 class PrivilegedSystemService : Service() {
-    override fun onBind(intent: Intent): IBinder {
-        return PrivilegedService()
-    }
+    override fun onBind(intent: Intent): IBinder = PrivilegedService()
 }

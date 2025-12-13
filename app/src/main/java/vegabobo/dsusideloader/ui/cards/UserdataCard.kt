@@ -53,10 +53,11 @@ fun UserdataCard(
                 AnimatedVisibility(visible = uiState.isError) {
                     Text(
                         modifier = Modifier.padding(start = 1.dp),
-                        text = stringResource(
-                            id = R.string.allowed_userdata_allocation,
-                            uiState.maximumAllowed,
-                        ),
+                        text =
+                            stringResource(
+                                id = R.string.allowed_userdata_allocation,
+                                uiState.maximumAllowed,
+                            ),
                         color = MaterialTheme.colorScheme.error,
                         lineHeight = 14.sp,
                         fontSize = 14.sp,

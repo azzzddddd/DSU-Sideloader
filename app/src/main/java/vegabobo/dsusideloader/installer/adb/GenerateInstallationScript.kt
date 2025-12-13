@@ -13,14 +13,11 @@ class GenerateInstallationScript(
     private val parameters: Triple<Long, String, Long>,
     private val instPrefs: InstallationPreferences = InstallationPreferences(),
 ) {
+    fun writeToFile(): String = storageManager.writeStringToExternalFileDir(getShellScript(), InstallationScript.FILENAME)
 
-    fun writeToFile(): String {
-        return storageManager.writeStringToExternalFileDir(getShellScript(), InstallationScript.FILENAME)
-    }
-
-    private fun getShellScript(): String {
-        return storageManager.readFileFromAssets(InstallationScript.ASSETS_SCRIPT_FILE)
+    private fun getShellScript(): String =
+        storageManager
+            .readFileFromAssets(InstallationScript.ASSETS_SCRIPT_FILE)
             .replace("%ACTION_INSTALL", InstallationCmdline(parameters).getCmd())
             .replace("%UNMOUNT_SD", instPrefs.isUnmountSdCard.toString())
-    }
 }

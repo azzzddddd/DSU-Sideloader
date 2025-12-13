@@ -12,11 +12,12 @@ class AdbInstallationHandler(
     val session: Session,
 ) {
     fun generate(onGenerated: (String) -> Unit) {
-        val installationScriptPath = GenerateInstallationScript(
-            storageManager,
-            session.getInstallationParameters(),
-            session.preferences,
-        ).writeToFile()
+        val installationScriptPath =
+            GenerateInstallationScript(
+                storageManager,
+                session.getInstallationParameters(),
+                session.preferences,
+            ).writeToFile()
         onGenerated(installationScriptPath)
     }
 }

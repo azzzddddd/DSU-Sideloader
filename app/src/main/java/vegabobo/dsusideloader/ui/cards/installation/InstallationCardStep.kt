@@ -189,10 +189,11 @@ fun InstallationCardStep(
             )
         InstallationStep.ERROR_EXTERNAL_SDCARD_ALLOC ->
             ProgressableCardContent(
-                text = stringResource(
-                    R.string.allocation_error_description,
-                    uiState.errorText,
-                ),
+                text =
+                    stringResource(
+                        R.string.allocation_error_description,
+                        uiState.errorText,
+                    ),
                 textFirstButton = stringResource(id = R.string.allocation_error_action),
                 onClickFirstButton = onClickUnmountSdCardAndRetry,
                 textSecondButton = stringResource(id = R.string.cancel),
@@ -208,10 +209,11 @@ fun InstallationCardStep(
             )
         InstallationStep.ERROR_F2FS_WRONG_PATH ->
             ProgressableCardContent(
-                text = stringResource(
-                    R.string.fs_features_error_description,
-                    uiState.errorText,
-                ),
+                text =
+                    stringResource(
+                        R.string.fs_features_error_description,
+                        uiState.errorText,
+                    ),
                 textFirstButton = stringResource(id = R.string.view_logs),
                 onClickFirstButton = onClickViewLogs,
                 textSecondButton = stringResource(id = R.string.clear),

@@ -10,15 +10,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Title(title: String, modifier: Modifier = Modifier) {
+fun Title(
+    title: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = title,
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.secondary,
-        modifier = modifier
-            .padding(start = 17.dp)
-            .padding(bottom = 8.dp)
-            .padding(top = 8.dp),
+        modifier =
+            modifier
+                .padding(start = 17.dp)
+                .padding(bottom = 8.dp)
+                .padding(top = 8.dp),
     )
 }

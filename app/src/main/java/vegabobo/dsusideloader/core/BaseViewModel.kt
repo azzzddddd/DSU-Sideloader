@@ -8,18 +8,9 @@ import vegabobo.dsusideloader.util.DataStoreUtils
 open class BaseViewModel(
     open val dataStore: DataStore<Preferences>,
 ) : ViewModel() {
+    suspend fun readStringPref(key: String): String = DataStoreUtils.readStringPref(dataStore, key, "")
 
-    suspend fun readStringPref(
-        key: String,
-    ): String {
-        return DataStoreUtils.readStringPref(dataStore, key, "")
-    }
-
-    suspend fun readBoolPref(
-        key: String,
-    ): Boolean {
-        return DataStoreUtils.readBoolPref(dataStore, key, false)
-    }
+    suspend fun readBoolPref(key: String): Boolean = DataStoreUtils.readBoolPref(dataStore, key, false)
 
     suspend fun updateBoolPref(
         key: String,

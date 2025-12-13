@@ -3,9 +3,7 @@ package vegabobo.dsusideloader.util
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 
 class DevicePropUtils {
-
     companion object {
-
         /**
          * Check if custom gsid binary prop is set, when this prop is set
          * we will return the minimum percentage allocation allowed by custom gsid binary.
@@ -19,9 +17,7 @@ class DevicePropUtils {
             return if (minAllowed.isNotEmpty()) minAllowed.toFloat() else 0.40F
         }
 
-        fun hasDynamicPartitions(): Boolean {
-            return getSystemProperty("ro.boot.dynamic_partitions") == "true"
-        }
+        fun hasDynamicPartitions(): Boolean = getSystemProperty("ro.boot.dynamic_partitions") == "true"
 
         private fun getSystemProperty(key: String): String {
             val systemPropertiesClass = Class.forName("android.os.SystemProperties")

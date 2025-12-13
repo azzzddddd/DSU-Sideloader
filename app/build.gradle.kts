@@ -12,6 +12,7 @@ plugins {
     id("com.mikepenz.aboutlibraries.plugin")
     id("kotlinx-serialization")
     id("org.jmailen.kotlinter")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" 
 }
 
 android {
@@ -97,9 +98,7 @@ android {
         buildConfig = true
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -109,7 +108,7 @@ android {
 
 aboutLibraries {
     // Remove the "generated" timestamp to allow for reproducible builds
-    excludeFields = arrayOf("generated")
+    export.excludeFields.set(listOf("generated"))
 }
 
 kotlin.sourceSets.all {

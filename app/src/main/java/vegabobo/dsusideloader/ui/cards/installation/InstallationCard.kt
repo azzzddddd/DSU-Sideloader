@@ -33,19 +33,21 @@ fun InstallationCard(
 ) {
     var chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
     chooseFile.type = "*/*"
-    val mimetypes = arrayOf(
-        "application/gzip",
-        "application/x-gzip",
-        "application/x-xz",
-        "application/zip",
-        "application/octet-stream",
-    )
+    val mimetypes =
+        arrayOf(
+            "application/gzip",
+            "application/x-gzip",
+            "application/x-xz",
+            "application/zip",
+            "application/octet-stream",
+        )
     chooseFile.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes)
     chooseFile = Intent.createChooser(chooseFile, "")
 
-    val launcherSelectFile = launcherAcResult {
-        onSelectFileSuccess(it)
-    }
+    val launcherSelectFile =
+        launcherAcResult {
+            onSelectFileSuccess(it)
+        }
 
     val textFieldInteraction = remember { MutableInteractionSource() }
 

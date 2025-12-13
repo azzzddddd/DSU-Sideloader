@@ -48,34 +48,34 @@ fun UpdaterCard(
     onClickDownloadUpdate: () -> Unit,
     onClickViewChangelog: () -> Unit,
 ) {
-    fun isDownloading(): Boolean =
-        uiState.isDownloading || uiState.updateStatus == UpdateStatus.CHECKING_FOR_UPDATES
+    fun isDownloading(): Boolean = uiState.isDownloading || uiState.updateStatus == UpdateStatus.CHECKING_FOR_UPDATES
 
-    fun isCheckingForUpdates(): Boolean =
-        uiState.updateStatus == UpdateStatus.CHECKING_FOR_UPDATES
+    fun isCheckingForUpdates(): Boolean = uiState.updateStatus == UpdateStatus.CHECKING_FOR_UPDATES
 
-    fun isUpdateFound(): Boolean =
-        uiState.updateStatus == UpdateStatus.UPDATE_FOUND
+    fun isUpdateFound(): Boolean = uiState.updateStatus == UpdateStatus.UPDATE_FOUND
 
     SimpleCard(
         addPadding = false,
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Surface(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .padding(top = 16.dp),
+                modifier =
+                    Modifier
+                        .padding(10.dp)
+                        .padding(top = 16.dp),
                 color = MaterialTheme.colorScheme.inverseOnSurface,
             ) {
                 Box {
-                    val progressBarModifier = Modifier
-                        .size(100.dp)
-                        .align(Alignment.Center)
+                    val progressBarModifier =
+                        Modifier
+                            .size(100.dp)
+                            .align(Alignment.Center)
                     if (isCheckingForUpdates()) {
                         CircularProgressIndicator(modifier = progressBarModifier)
                     }
@@ -90,12 +90,13 @@ fun UpdaterCard(
                     val scale = animateFloatAsState(if (selected.value) 0.75f else 1f)
                     selected.value = isDownloading()
                     Image(
-                        modifier = Modifier
-                            .size(96.dp)
-                            .scale(scale.value)
-                            .clip(CircleShape)
-                            .align(Alignment.Center)
-                            .clickable { onClickImage() },
+                        modifier =
+                            Modifier
+                                .size(96.dp)
+                                .scale(scale.value)
+                                .clip(CircleShape)
+                                .align(Alignment.Center)
+                                .clickable { onClickImage() },
                         painter = painterResource(id = R.drawable.app_icon_mini),
                         contentDescription = "App icon",
                     )
@@ -108,11 +109,12 @@ fun UpdaterCard(
                 textAlign = TextAlign.Center,
             )
             Text(
-                text = stringResource(
-                    id = R.string.version_info,
-                    BuildConfig.VERSION_NAME,
-                    BuildConfig.VERSION_CODE,
-                ),
+                text =
+                    stringResource(
+                        id = R.string.version_info,
+                        BuildConfig.VERSION_NAME,
+                        BuildConfig.VERSION_CODE,
+                    ),
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.alpha(0.75f),
@@ -123,23 +125,24 @@ fun UpdaterCard(
             PreferenceItem(
                 title = stringResource(id = R.string.check_updates_title),
                 description =
-                when (uiState.updateStatus) {
-                    UpdateStatus.NO_UPDATE_FOUND ->
-                        stringResource(id = R.string.check_updates_text_updated)
+                    when (uiState.updateStatus) {
+                        UpdateStatus.NO_UPDATE_FOUND ->
+                            stringResource(id = R.string.check_updates_text_updated)
 
-                    UpdateStatus.UPDATE_FOUND ->
-                        stringResource(R.string.check_updates_text_found, uiState.updateVersion)
+                        UpdateStatus.UPDATE_FOUND ->
+                            stringResource(R.string.check_updates_text_found, uiState.updateVersion)
 
-                    else ->
-                        stringResource(id = R.string.check_updates_text_idle)
-                },
+                        else ->
+                            stringResource(id = R.string.check_updates_text_idle)
+                    },
                 onClick = { onClickCheckUpdates() },
             )
             AnimatedVisibility(visible = isUpdateFound()) {
                 Row(
-                    modifier = Modifier
-                        .padding(all = 12.dp)
-                        .padding(end = 4.dp),
+                    modifier =
+                        Modifier
+                            .padding(all = 12.dp)
+                            .padding(end = 4.dp),
                 ) {
                     Spacer(modifier = Modifier.weight(1F))
                     SecondaryButton(

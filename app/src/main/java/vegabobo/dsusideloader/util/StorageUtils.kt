@@ -4,9 +4,7 @@ import android.os.Environment
 import android.os.StatFs
 
 class StorageUtils {
-
     companion object {
-
         fun getAllocInfo(allowedPercentage: Float): Pair<Boolean, Int> {
             val statFs = StatFs(Environment.getDataDirectory().absolutePath)
             val blockSize = statFs.blockSizeLong

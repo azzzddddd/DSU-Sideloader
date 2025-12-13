@@ -18,8 +18,10 @@ fun GrantingPermissionCard() {
         text = stringResource(id = R.string.granting_permission),
     ) {
         LinearProgressIndicator(
-            modifier = Modifier.fillMaxWidth()
-                .padding(top = 10.dp, bottom = 10.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp, bottom = 10.dp),
         )
     }
 }

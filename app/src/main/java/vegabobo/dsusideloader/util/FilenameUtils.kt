@@ -8,16 +8,17 @@ import android.provider.OpenableColumns
 import androidx.documentfile.provider.DocumentFile
 
 class FilenameUtils {
-
     companion object {
-
         /**
          * Append text to the end of all digits containing in a string
          * @param input String containing digits
          * @param textToAppend Text that will be appended
          * @return Formatted string, if there is no digits in "input", a empty string will be returned.
          */
-        fun appendToDigitsToString(input: String, textToAppend: String): String {
+        fun appendToDigitsToString(
+            input: String,
+            textToAppend: String,
+        ): String {
             var newText = input.filter { it.isDigit() } + textToAppend
             if (newText == textToAppend) {
                 newText = ""
@@ -29,7 +30,10 @@ class FilenameUtils {
          * Tries to convert DocumentFile uri to real path
          * isn't guaranteed that will work with all kinds of path
          */
-        fun getFilePath(uri: Uri, addQuotes: Boolean = false): String {
+        fun getFilePath(
+            uri: Uri,
+            addQuotes: Boolean = false,
+        ): String {
             val input = uri.path.toString()
             val safStorage = input.split("/document/")[1].replace("/tree/", "")
             val path = safStorage.split(":")[1]
@@ -47,7 +51,10 @@ class FilenameUtils {
             }
         }
 
-        fun queryName(resolver: ContentResolver, uri: Uri): String {
+        fun queryName(
+            resolver: ContentResolver,
+            uri: Uri,
+        ): String {
             val returnCursor: Cursor = resolver.query(uri, null, null, null, null)!!
             val nameIndex: Int = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             returnCursor.moveToFirst()
@@ -56,12 +63,11 @@ class FilenameUtils {
             return name
         }
 
-        fun getDigits(input: String): String {
-            return appendToDigitsToString(input, "")
-        }
+        fun getDigits(input: String): String = appendToDigitsToString(input, "")
 
-        fun getLengthFromFile(context: Context, uri: Uri): Long {
-            return DocumentFile.fromSingleUri(context, uri)!!.length()
-        }
+        fun getLengthFromFile(
+            context: Context,
+            uri: Uri,
+        ): Long = DocumentFile.fromSingleUri(context, uri)!!.length()
     }
 }

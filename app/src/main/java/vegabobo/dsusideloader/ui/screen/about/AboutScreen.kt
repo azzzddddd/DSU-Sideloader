@@ -45,18 +45,20 @@ fun AboutScreen(
         uiState.toastDisplay.collectLatest {
             when (it) {
                 DevOptToastDisplay.ENABLED_DEV_OPT ->
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.developer_options_enabled),
-                        Toast.LENGTH_LONG,
-                    ).show()
+                    Toast
+                        .makeText(
+                            context,
+                            context.getString(R.string.developer_options_enabled),
+                            Toast.LENGTH_LONG,
+                        ).show()
 
                 DevOptToastDisplay.DISABLED_DEV_OPT ->
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.developer_options_disabled),
-                        Toast.LENGTH_LONG,
-                    ).show()
+                    Toast
+                        .makeText(
+                            context,
+                            context.getString(R.string.developer_options_disabled),
+                            Toast.LENGTH_LONG,
+                        ).show()
 
                 else -> {}
             }

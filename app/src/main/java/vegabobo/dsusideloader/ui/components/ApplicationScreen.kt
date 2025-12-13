@@ -38,23 +38,26 @@ fun ApplicationScreen(
     content: @Composable () -> Unit = {},
 ) {
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        flingAnimationSpec = decayAnimationSpec,
-        state = rememberTopAppBarState(),
-    )
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+            flingAnimationSpec = decayAnimationSpec,
+            state = rememberTopAppBarState(),
+        )
 
     val scrollBehaviorModifier =
         if (enableDefaultScrollBehavior) Modifier.nestedScroll(scrollBehavior.nestedScrollConnection) else Modifier
 
-    val insets = WindowInsets
-        .systemBars
-        .only(WindowInsetsSides.Vertical)
-        .asPaddingValues()
+    val insets =
+        WindowInsets
+            .systemBars
+            .only(WindowInsetsSides.Vertical)
+            .asPaddingValues()
 
     Surface {
         Scaffold(
-            modifier = scrollBehaviorModifier
-                .fillMaxSize(),
+            modifier =
+                scrollBehaviorModifier
+                    .fillMaxSize(),
             topBar = { topBar(scrollBehavior) },
             bottomBar = { bottomBar() },
             content = { innerPadding ->
@@ -62,9 +65,10 @@ fun ApplicationScreen(
                     if (enableDefaultScrollBehavior) Modifier.verticalScroll(rememberScrollState()) else Modifier
                 if (columnContent) {
                     Column(
-                        modifier = modifier
-                            .padding(top = innerPadding.calculateTopPadding())
-                            .then(scrollModifier),
+                        modifier =
+                            modifier
+                                .padding(top = innerPadding.calculateTopPadding())
+                                .then(scrollModifier),
                         verticalArrangement = verticalArrangement,
                     ) {
                         content()

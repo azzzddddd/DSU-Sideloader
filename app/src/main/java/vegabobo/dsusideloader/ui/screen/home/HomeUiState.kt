@@ -55,7 +55,5 @@ data class HomeUiState(
     val passedInitialChecks: Boolean = false,
     val shouldKeepScreenOn: Boolean = false,
 ) {
-    fun isInstalling(): Boolean {
-        return installationCard.installationStep != InstallationStep.NOT_INSTALLING
-    }
+    fun isInstalling(): Boolean = installationCard.installationStep != InstallationStep.NOT_INSTALLING
 }
