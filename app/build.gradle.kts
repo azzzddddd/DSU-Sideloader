@@ -166,5 +166,5 @@ tasks {
     }
 }
 ktlint {
-    ignoreFailures = true
+    ignoreFailures.set(true)
 }
