@@ -88,7 +88,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_2_1)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
 }
     kotlin {
         jvmToolchain(21)
@@ -165,6 +165,6 @@ tasks {
         dependsOn(formatKotlin)
     }
 }
-kotlinter {
+ktlint {
     ignoreFailures = true
 }
