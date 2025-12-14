@@ -6,7 +6,7 @@ fun getReleaseSigningConfig(): File {
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android") version "1.9.24"
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("com.mikepenz.aboutlibraries.plugin")
