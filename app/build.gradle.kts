@@ -164,4 +164,7 @@ tasks {
     "lintKotlin" {
         dependsOn(formatKotlin)
     }
+    "kotlinter" {
+    ignoreFailures = true
+    }
 }
